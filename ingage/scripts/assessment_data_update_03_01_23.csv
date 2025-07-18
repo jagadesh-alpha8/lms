@@ -1,0 +1,8 @@
+roll_no,nm_id,student_name,college_code,college_name,Assessment 1,Assessment 2,Assessment 3,Blender offline Assessment 4,Internal Marks (ADD 4 assessments & Divide /4),Unity Offline External Marks,Final Marks,Pass/Fail,Course Completion ,zone_name,group,course_name,partner_name
+210520104090,F612A36B012DA86B60948C5B6EB9C204,THARUN S,2105,Dmi college of Engineering,100,90,No Assessment,96,72,86,79,Pass,TRUE,Zone II : Chennai-II,1,,,Error - could not convert string to float: 'No Assessment'
+210520104092,8A1D7E48DC3BDFBABB04EFC4F11834F0,VARSHA M,2105,Dmi college of Engineering,20,90,90,84,71,86,79,Pass,TRUE,Zone II : Chennai-II,1,,
+210520104094,33B19D918DB38CA9F9D437AEECD1FB91,VIGNESH A,2105,Dmi college of Engineering,100,30,No Assessment,92,56,84,70,Pass,TRUE,Zone II : Chennai-II,1,,,Error - could not convert string to float: 'No Assessment'
+210520104097,417378AEAFF68BDB19648CCF26F2AF0A,VITRAG BARIA P,2105,Dmi college of Engineering,100,90,70,96,89,88,89,Pass,TRUE,Zone II : Chennai-II,1,,
+210520104099,F1DDEC6071BE6E585ED4EC6E570EC20E,YOVAN AVINASH Y,2105,Dmi college of Engineering,60,100,50,96,77,86,81,Pass,TRUE,Zone II : Chennai-II,1,,
+210520104301,68FE2ACEBA7440D8BBB412AB1C07F6D9,EBENEZER PAUL SAMUEL,2105,Dmi college of Engineering,20,70,60,88,60,86,73,Pass,TRUE,Zone II : Chennai-II,1,,
+210520104303,DA0462F34976FDCBBB94C916D8794E0E,SURESH C,2105,Dmi college of Engineering,100,80,100,88,92,86,89,Pass,TRUE,Zone II : Chennai-II,1,,
