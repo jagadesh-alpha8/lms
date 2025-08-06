@@ -29,15 +29,14 @@ def publish_course(modeladmin, request, queryset):
             "course_type": "ONLINE",
             "location": ""
         }
+
         access_key, refresh_key = nm_keys()
         if access_key:
             headers = {
-                'Authorization': f'Bearer {access_key}'
+                'Authorization': f'Bearer {access_key}',
+                'Content-Type': 'application/json'
             }
-            response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
-            print(response.text)
-            print(response.status_code)
-
+            response = requests.post(url, headers=headers, json=payload)
 
 publish_course.short_description = 'Publish Course'
 

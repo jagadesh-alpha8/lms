@@ -174,7 +174,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
 CORS_ORIGIN_ALLOW_ALL = True
-CSRF_TRUSTED_ORIGINS = ['https://learningapi.ingagemetaverse.com']
+CSRF_TRUSTED_ORIGINS = ['https://apilearning.ingagemetaverse.com']
 CORS_ALLOWED_ORIGINS = ["http://*", "https://*"]
 
 
