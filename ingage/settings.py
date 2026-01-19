@@ -25,10 +25,12 @@ SECRET_KEY = 'django-insecure-4!i19=7el&9arv&$3jjqu$3im3d9_k4bt50uy-0o@8+v7za)^&
 JWT_SECRET_KEY = 'django-insecure-4!i19=7el&9arv&$3jjqu$3im3d9_k4bt50uy-0o@8+v7za)^&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-DEV = False
+DEBUG = True
+DEV = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["apilearning.ingagemetaverse.com",'13.201.205.214','localhost', '127.0.0.1']
+
+# ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
     'courses',
     'nm',
     'assessments',
+    'import_export',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -127,7 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -144,6 +146,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -161,13 +165,13 @@ REST_FRAMEWORK = {
 
 """
 "client_key": "0ab4ace42aa7e3e8d2a46072a1671de9",
-"client_secret": "6b13f3d3eaf25018c844902d311129c6"
+"client_secret": "53e16dee18e59cfa8c144c800d0f3b5d"
 
 """
 NM_JWT_SECRET = os.environ.get('NM_JWT_SECRET', 'DEV-KEY')
 
 NM_CLIENT_KEY = os.environ.get('NM_CLIENT_KEY', '0ab4ace42aa7e3e8d2a46072a1671de9')
-NM_CLIENT_SECRET = os.environ.get('NM_CLIENT_SECRET', '6b13f3d3eaf25018c844902d311129c6')
+NM_CLIENT_SECRET = os.environ.get('NM_CLIENT_SECRET', '53e16dee18e59cfa8c144c800d0f3b5d')
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -208,3 +212,4 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+

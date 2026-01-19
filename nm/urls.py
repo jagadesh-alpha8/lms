@@ -6,5 +6,5 @@ urlpatterns = [
     path('token/refresh/', token_refresh),
     path('course/subscribe/', course_subscribe),
     path('course/access/', course_access_url),
-    # path('course/access/'),
+    # path('course/access/'), 
 ]

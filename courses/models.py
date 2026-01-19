@@ -47,6 +47,7 @@ class CourseVideo(models.Model):
         (1, 'meeting link'),
         (2, 'assessment test'),
         (3, 'project submission'),
+        (4, 'hackathon form link'), 
     )
     assessment = models.ForeignKey('assessments.Assessment', on_delete=models.SET_NULL, null=True, blank=True)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, blank=True)

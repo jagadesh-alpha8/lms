@@ -55,8 +55,8 @@ def student_token(request):
 
 @api_view(['POST'])
 def login(request):
-    email = request.POST.get('email', None)
-    password = request.POST.get('password', None)
+    email = request.data.get('email', None)
+    password = request.data.get('password', None)
     if email is None or password is None:
         return Response({"message": "Please provide email/ password"}, status=status.HTTP_400_BAD_REQUEST, content_type='application/json')
     try:

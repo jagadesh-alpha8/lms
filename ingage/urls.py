@@ -26,6 +26,4 @@ urlpatterns = [
     path('api/v1/assessments/', include('assessments.urls')),
     path('api/nm/v1/', include('nm.urls')),
     path('api/v1/', include('users.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
-                                                                                           document_root=settings.MEDIA_ROOT)
-
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
