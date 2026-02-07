@@ -1,0 +1,14 @@
+../venv
+venv
+.idea
+InGage_backend.iml
+__pycache__
+**/__pycache__
+**/**/__pycache__
+**/**/**/__pycache__
+**/migrations
+.pyc
+.env
+
+ingage/db.sqlite3
+ingage/media/**
