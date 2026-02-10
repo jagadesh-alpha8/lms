@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skill Development Program Registration</title>
+    <title>Hackathon & Career Registration</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -25,9 +25,13 @@
         }
         .form-header h1 {
             color: #202124;
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 400;
-            margin-bottom: 0;
+            margin-bottom: 15px;
+        }
+        .form-description {
+            color: #5f6368;
+            line-height: 1.6;
         }
         .section-header {
             background-color: #f1f3f4;
@@ -69,19 +73,13 @@
         .btn-primary {
             background-color: #673ab7;
             border-color: #673ab7;
-            padding: 10px 24px;
+            padding: 12px 32px;
             font-weight: 500;
+            font-size: 16px;
         }
         .btn-primary:hover {
             background-color: #5e35b1;
             border-color: #5e35b1;
-        }
-        .btn-secondary {
-            background-color: #f1f3f4;
-            border-color: #f1f3f4;
-            color: #202124;
-            padding: 10px 24px;
-            font-weight: 500;
         }
         .errorlist {
             list-style: none;
@@ -104,516 +102,448 @@
             background-color: #f8f9fa;
             border-left: 3px solid #673ab7;
             border-radius: 4px;
+            margin-top: 15px;
         }
         .conditional-field.show {
             display: block;
+        }
+        .checkmark-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .checkmark-list li:before {
+            content: "✔ ";
+            color: #34a853;
+            font-weight: bold;
+            margin-right: 8px;
         }
     </style>
 </head>
 <body>
     <div class="form-container">
         <div class="form-header">
-            <h1>Skill Development Program – Free Course, Internship Survey & Hackathon Registration</h1>
-            <p class="text-muted mt-2">Please fill out this form to register for our skill development program</p>
+            <center><h1>{{ form_title }}</h1></center>
+            <h4>Skill Development Program – Hackathon, Free Course & Career Opportunity Registration</h4>
+            <div class="form-description">
+                <p><strong>Welcome!</strong></p>
+                <p>This form is designed to help students access multiple opportunities through a single registration:</p>
+                <ul class="checkmark-list">
+                    <li>Participation in upcoming Hackathon</li>
+                    <li>Enrollment in FREE certified skill development courses</li>
+                    <li>Access to Internship and Job opportunities</li>
+                    <li>Career guidance and mentoring support</li>
+                </ul>
+                <p>Your responses will help us understand your interests, skills, and career goals so we can support you better.</p>
+                <p><em>Please fill in the details carefully and accurately.</em></p>
+            </div>
         </div>
 
         <form method="post" enctype="multipart/form-data" id="registrationForm">
             {% csrf_token %}
 
-            <!-- Section 1: Basic Information -->
-            <div class="section-header">Section 1: Basic Information</div>
+            <!-- SECTION 1 – BASIC DETAILS -->
+            <div class="section-header">SECTION 1 – BASIC DETAILS</div>
             
             <div class="mb-3">
-                <label for="{{ form.college_name.id_for_label }}" class="form-label required-field">
-                    College Name
-                </label>
+                <label for="{{ form.full_name.id_for_label }}" class="form-label required-field">1. Full Name</label>
+                {{ form.full_name }}
+                {% if form.full_name.errors %}
+                    <ul class="errorlist">{% for error in form.full_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.college_name.id_for_label }}" class="form-label required-field">2. College Name</label>
                 {{ form.college_name }}
                 {% if form.college_name.errors %}
-                    <ul class="errorlist">
-                        {% for error in form.college_name.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
+                    <ul class="errorlist">{% for error in form.college_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>
                 {% endif %}
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.branch_of_study.id_for_label }}" class="form-label required-field">
-                    Branch of Study
-                </label>
-                {{ form.branch_of_study }}
-                {% if form.branch_of_study.errors %}
-                    <ul class="errorlist">
-                        {% for error in form.branch_of_study.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
+                <label for="{{ form.college_code.id_for_label }}" class="form-label required-field">3. College Code</label>
+                {{ form.college_code }}
+                {% if form.college_code.errors %}
+                    <ul class="errorlist">{% for error in form.college_code.errors %}<li>{{ error }}</li>{% endfor %}</ul>
                 {% endif %}
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.current_year.id_for_label }}" class="form-label required-field">
-                    Current Year
-                </label>
-                {{ form.current_year }}
-                {% if form.current_year.errors %}
-                    <ul class="errorlist">
-                        {% for error in form.current_year.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
+                <label for="{{ form.branch_department.id_for_label }}" class="form-label required-field">4. Branch / Department</label>
+                {{ form.branch_department }}
+                <div class="help-text">(Example: CSE, IT, ECE, Mechanical, Civil, etc.)</div>
+                {% if form.branch_department.errors %}
+                    <ul class="errorlist">{% for error in form.branch_department.errors %}<li>{{ error }}</li>{% endfor %}</ul>
                 {% endif %}
             </div>
 
-            <!-- Course Section -->
-            <div class="section-header">Free Course Registration</div>
+            <div class="mb-3">
+                <label for="{{ form.year_of_study.id_for_label }}" class="form-label required-field">5. Year of Study</label>
+                {{ form.year_of_study }}
+                {% if form.year_of_study.errors %}
+                    <ul class="errorlist">{% for error in form.year_of_study.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
 
             <div class="mb-3">
-                <label class="form-label required-field">
-                    Are you interested in enrolling in a FREE course with certification?
-                </label>
+                <label for="{{ form.email_address.id_for_label }}" class="form-label required-field">6. Email Address</label>
+                {{ form.email_address }}
+                {% if form.email_address.errors %}
+                    <ul class="errorlist">{% for error in form.email_address.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.mobile_number.id_for_label }}" class="form-label required-field">7. Mobile Number</label>
+                {{ form.mobile_number }}
+                {% if form.mobile_number.errors %}
+                    <ul class="errorlist">{% for error in form.mobile_number.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <!-- SECTION 2 – LEARNING INTEREST -->
+            <div class="section-header">SECTION 2 – LEARNING INTEREST</div>
+
+            <div class="mb-3">
+                <label for="{{ form.preferred_learning_domain.id_for_label }}" class="form-label required-field">8. Preferred Learning Domain</label>
+                {{ form.preferred_learning_domain }}
+                {% if form.preferred_learning_domain.errors %}
+                    <ul class="errorlist">{% for error in form.preferred_learning_domain.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div id="learningDomainOtherField" class="conditional-field">
+                <label for="{{ form.preferred_learning_domain_other.id_for_label }}" class="form-label">Please specify other domain</label>
+                {{ form.preferred_learning_domain_other }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label required-field">9. Preferred Mode of Learning</label>
                 <div class="radio-group">
-                    {% for radio in form.interested_in_course %}
+                    {% for radio in form.preferred_mode_of_learning %}
                         {{ radio }}
                     {% endfor %}
                 </div>
-                {% if form.interested_in_course.errors %}
-                    <ul class="errorlist">
-                        {% for error in form.interested_in_course.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
+                {% if form.preferred_mode_of_learning.errors %}
+                    <ul class="errorlist">{% for error in form.preferred_mode_of_learning.errors %}<li>{{ error }}</li>{% endfor %}</ul>
                 {% endif %}
             </div>
 
-            <div id="courseFields" class="conditional-field">
-                <div class="mb-3">
-                    <label for="{{ form.preferred_course_domain.id_for_label }}" class="form-label">
-                        Preferred Course Domain
-                    </label>
-                    {{ form.preferred_course_domain }}
-                    {% if form.preferred_course_domain.errors %}
-                        <ul class="errorlist">
-                            {% for error in form.preferred_course_domain.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Preferred Mode of Learning</label>
-                    <div class="radio-group">
-                        {% for radio in form.preferred_learning_mode %}
-                            {{ radio }}
-                        {% endfor %}
-                    </div>
-                    {% if form.preferred_learning_mode.errors %}
-                        <ul class="errorlist">
-                            {% for error in form.preferred_learning_mode.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Current Skill Level on the selected Domain</label>
-                    <div class="radio-group">
-                        {% for radio in form.current_skill_level %}
-                            {{ radio }}
-                        {% endfor %}
-                    </div>
-                    {% if form.current_skill_level.errors %}
-                        <ul class="errorlist">
-                            {% for error in form.current_skill_level.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </div>
-            </div>
-
-            <!-- Internship & Job Section -->
-            <div class="section-header">Section 2: Internship & Job Experience</div>
-
             <div class="mb-3">
-                <label class="form-label">Do you have any previous internship experience?</label>
+                <label class="form-label required-field">10. Current Skill Level in Selected Domain</label>
                 <div class="radio-group">
-                    {% for radio in form.has_previous_internship %}
+                    {% for radio in form.current_skill_level %}
                         {{ radio }}
                     {% endfor %}
                 </div>
+                {% if form.current_skill_level.errors %}
+                    <ul class="errorlist">{% for error in form.current_skill_level.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
             </div>
 
-            <div id="previousInternshipFields" class="conditional-field">
+            <!-- SECTION 3 – INTERNSHIP & CAREER INTEREST -->
+            <div class="section-header">SECTION 3 – INTERNSHIP & CAREER INTEREST</div>
+
+            <div class="mb-3">
+                <label class="form-label required-field">11. Are you interested in Internship Opportunities?</label>
+                <div class="radio-group">
+                    {% for radio in form.interested_in_internship %}
+                        {{ radio }}
+                    {% endfor %}
+                </div>
+                {% if form.interested_in_internship.errors %}
+                    <ul class="errorlist">{% for error in form.interested_in_internship.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label required-field">12. Are you interested in Job Placement Opportunities?</label>
+                <div class="radio-group">
+                    {% for radio in form.interested_in_job %}
+                        {{ radio }}
+                    {% endfor %}
+                </div>
+                {% if form.interested_in_job.errors %}
+                    <ul class="errorlist">{% for error in form.interested_in_job.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label required-field">13. Do you have any previous internship experience?</label>
+                <div class="radio-group">
+                    {% for radio in form.previous_internship_experience %}
+                        {{ radio }}
+                    {% endfor %}
+                </div>
+                {% if form.previous_internship_experience.errors %}
+                    <ul class="errorlist">{% for error in form.previous_internship_experience.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div id="internshipDetailsField" class="conditional-field">
                 <div class="mb-3">
-                    <label for="{{ form.internship_duration.id_for_label }}" class="form-label">
-                        Total duration of your previous internship experience?
-                    </label>
+                    <label for="{{ form.internship_company_name.id_for_label }}" class="form-label">Company/Organisation Name</label>
+                    {{ form.internship_company_name }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.internship_role.id_for_label }}" class="form-label">Role / Designation</label>
+                    {{ form.internship_role }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.internship_duration.id_for_label }}" class="form-label">14. If Yes – Internship Duration</label>
                     {{ form.internship_duration }}
                 </div>
-
                 <div class="mb-3">
-                    <label for="{{ form.internship_roles.id_for_label }}" class="form-label">
-                        Previous role(s) or domain(s) worked in
-                    </label>
-                    {{ form.internship_roles }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.internship_skills_gained.id_for_label }}" class="form-label">
-                        Key skills gained from previous internship
-                    </label>
+                    <label for="{{ form.internship_skills_gained.id_for_label }}" class="form-label">15. Key Skills Gained from Internship (Optional)</label>
                     {{ form.internship_skills_gained }}
                 </div>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Are you currently pursuing or engaged in any internship at the moment?</label>
+                <label class="form-label required-field">16. Do you have any prior job experience?</label>
                 <div class="radio-group">
-                    {% for radio in form.currently_doing_internship %}
+                    {% for radio in form.prior_job_experience %}
                         {{ radio }}
                     {% endfor %}
                 </div>
+                {% if form.prior_job_experience.errors %}
+                    <ul class="errorlist">{% for error in form.prior_job_experience.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
             </div>
 
-            <div id="currentInternshipFields" class="conditional-field">
+            <div id="jobDetailsField" class="conditional-field">
                 <div class="mb-3">
-                    <label for="{{ form.current_internship_company.id_for_label }}" class="form-label">
-                        Current Company / Organization Name
-                    </label>
-                    {{ form.current_internship_company }}
+                    <label for="{{ form.job_company_name.id_for_label }}" class="form-label">Company/Organisation Name</label>
+                    {{ form.job_company_name }}
                 </div>
-
                 <div class="mb-3">
-                    <label for="{{ form.current_internship_role.id_for_label }}" class="form-label">
-                        Your current role / designation
-                    </label>
-                    {{ form.current_internship_role }}
+                    <label for="{{ form.job_role.id_for_label }}" class="form-label">Role / Designation</label>
+                    {{ form.job_role }}
                 </div>
-
                 <div class="mb-3">
-                    <label for="{{ form.current_internship_duration.id_for_label }}" class="form-label">
-                        How long have you been working in your current role?
-                    </label>
-                    {{ form.current_internship_duration }}
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Do you have any prior job experience?</label>
-                <div class="radio-group">
-                    {% for radio in form.has_previous_job %}
-                        {{ radio }}
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div id="previousJobFields" class="conditional-field">
-                <div class="mb-3">
-                    <label for="{{ form.job_duration.id_for_label }}" class="form-label">
-                        Total duration of your previous Job experience?
-                    </label>
+                    <label for="{{ form.job_duration.id_for_label }}" class="form-label">17. If Yes – Job Duration</label>
                     {{ form.job_duration }}
                 </div>
-
                 <div class="mb-3">
-                    <label for="{{ form.job_roles.id_for_label }}" class="form-label">
-                        Previous role(s) or domain(s) worked in
-                    </label>
-                    {{ form.job_roles }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.job_skills_gained.id_for_label }}" class="form-label">
-                        Key skills gained from previous Job
-                    </label>
+                    <label for="{{ form.job_skills_gained.id_for_label }}" class="form-label">18. Key Skills Gained from Job (Optional)</label>
                     {{ form.job_skills_gained }}
                 </div>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Are you currently employed or working in a job at the moment?</label>
-                <div class="radio-group">
-                    {% for radio in form.currently_employed %}
-                        {{ radio }}
-                    {% endfor %}
-                </div>
+                <label for="{{ form.preferred_career_domain.id_for_label }}" class="form-label required-field">19. Preferred Career Domain</label>
+                {{ form.preferred_career_domain }}
+                {% if form.preferred_career_domain.errors %}
+                    <ul class="errorlist">{% for error in form.preferred_career_domain.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
             </div>
 
-            <div id="currentJobFields" class="conditional-field">
-                <div class="mb-3">
-                    <label for="{{ form.current_job_company.id_for_label }}" class="form-label">
-                        Current Company / Organization Name
-                    </label>
-                    {{ form.current_job_company }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.current_job_role.id_for_label }}" class="form-label">
-                        Your current role / designation
-                    </label>
-                    {{ form.current_job_role }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.current_job_duration.id_for_label }}" class="form-label">
-                        How long have you been working in your current role?
-                    </label>
-                    {{ form.current_job_duration }}
-                </div>
+            <div id="careerDomainOtherField" class="conditional-field">
+                <label for="{{ form.preferred_career_domain_other.id_for_label }}" class="form-label">Please specify other career domain</label>
+                {{ form.preferred_career_domain_other }}
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Are you interested in Internship or job opportunities?</label>
-                <div class="radio-group">
-                    {% for radio in form.interested_in_opportunities %}
-                        {{ radio }}
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="{{ form.preferred_role.id_for_label }}" class="form-label">
-                    Preferred Role / Domain
-                </label>
-                {{ form.preferred_role }}
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Availability for the Internship / Job</label>
+                <label class="form-label required-field">20. Availability for Internship / Job</label>
                 <div class="radio-group">
                     {% for radio in form.availability %}
                         {{ radio }}
                     {% endfor %}
                 </div>
+                {% if form.availability.errors %}
+                    <ul class="errorlist">{% for error in form.availability.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Open to Remote Opportunities?</label>
+                <label class="form-label required-field">21. Open to Remote Opportunities?</label>
                 <div class="radio-group">
                     {% for radio in form.open_to_remote %}
                         {{ radio }}
                     {% endfor %}
                 </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="{{ form.resume.id_for_label }}" class="form-label">
-                    Resume Upload (Optional)
-                </label>
-                {{ form.resume }}
-                <div class="help-text">Upload 1 supported file: PDF or document. Max 10 MB.</div>
-                {% if form.resume.errors %}
-                    <ul class="errorlist">
-                        {% for error in form.resume.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
+                {% if form.open_to_remote.errors %}
+                    <ul class="errorlist">{% for error in form.open_to_remote.errors %}<li>{{ error }}</li>{% endfor %}</ul>
                 {% endif %}
             </div>
 
-            <!-- Hackathon Registration Section -->
-            <div class="section-header">Section 3: Hackathon Registration</div>
+            <div class="mb-3">
+                <label for="{{ form.resume.id_for_label }}" class="form-label">22. Resume Upload (Optional)</label>
+                {{ form.resume }}
+                <div class="help-text">Upload your latest resume (Supported: PDF / DOC – Max 10 MB)</div>
+                {% if form.resume.errors %}
+                    <ul class="errorlist">{% for error in form.resume.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <!-- SECTION 4 – HACKATHON REGISTRATION -->
+            <div class="section-header">SECTION 4 – HACKATHON REGISTRATION</div>
 
             <div class="mb-3">
-                <label class="form-label">Are you interested in participating in a Hackathon?</label>
+                <label for="{{ form.team_name.id_for_label }}" class="form-label">23. Team Name</label>
+                {{ form.team_name }}
+                <div class="help-text">(Required only if you already have a team)</div>
+                {% if form.team_name.errors %}
+                    <ul class="errorlist">{% for error in form.team_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label required-field">24. Do you need mentor support before Hackathon?</label>
                 <div class="radio-group">
-                    {% for radio in form.interested_in_hackathon %}
+                    {% for radio in form.need_mentor_support %}
                         {{ radio }}
                     {% endfor %}
                 </div>
+                {% if form.need_mentor_support.errors %}
+                    <ul class="errorlist">{% for error in form.need_mentor_support.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
             </div>
 
-            <div id="hackathonFields" class="conditional-field">
-                <div class="mb-3">
-                    <label class="form-label">Previous Hackathon Experience</label>
-                    <div class="radio-group">
-                        {% for radio in form.has_hackathon_experience %}
-                            {{ radio }}
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Preferred Hackathon Mode</label>
-                    <div class="radio-group">
-                        {% for radio in form.preferred_hackathon_mode %}
-                            {{ radio }}
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.participant_name.id_for_label }}" class="form-label required-field">
-                        Participants Name
-                    </label>
-                    {{ form.participant_name }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.participant_email.id_for_label }}" class="form-label required-field">
-                        Participants Email Address
-                    </label>
-                    {{ form.participant_email }}
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Team Preference</label>
-                    <div class="radio-group">
-                        {% for radio in form.team_preference %}
-                            {{ radio }}
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.team_name.id_for_label }}" class="form-label required-field">
-                        Team Name
-                    </label>
-                    {{ form.team_name }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="{{ form.participant_mobile.id_for_label }}" class="form-label required-field">
-                        Participants Mobile Number
-                    </label>
-                    {{ form.participant_mobile }}
-                </div>
-
-                <div class="mb-3">
-                    <div class="form-check">
-                        {{ form.consent }}
-                        <label class="form-check-label required-field" for="{{ form.consent.id_for_label }}">
-                            I agree to be contacted regarding courses, internships, jobs, and hackathon updates.
-                        </label>
-                    </div>
-                    {% if form.consent.errors %}
-                        <ul class="errorlist">
-                            {% for error in form.consent.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </div>
+            <div class="mb-3">
+                <label for="{{ form.college_registration_number.id_for_label }}" class="form-label required-field">25. College Registration Number</label>
+                {{ form.college_registration_number }}
+                {% if form.college_registration_number.errors %}
+                    <ul class="errorlist">{% for error in form.college_registration_number.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
             </div>
 
-            <!-- Form Actions -->
-            <div class="d-flex gap-2 mt-4">
-                <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-secondary">Clear form</button>
+            <div class="mb-3">
+                <label for="{{ form.naan_mudhalvan_id.id_for_label }}" class="form-label">26. Naan Mudhalvan ID</label>
+                {{ form.naan_mudhalvan_id }}
+                {% if form.naan_mudhalvan_id.errors %}
+                    <ul class="errorlist">{% for error in form.naan_mudhalvan_id.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.district.id_for_label }}" class="form-label">27. District</label>
+                {{ form.district }}
+                {% if form.district.errors %}
+                    <ul class="errorlist">{% for error in form.district.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.project_file.id_for_label }}" class="form-label required-field">28. Project File</label>
+                {{ form.project_file }}
+                <div class="help-text">(Supported: PDF / DOC – Max 10 MB)</div>
+                {% if form.project_file.errors %}
+                    <ul class="errorlist">{% for error in form.project_file.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                {% endif %}
+            </div>
+
+            <!-- SECTION 5 – CONSENT & CONFIRMATION -->
+            <div class="section-header">SECTION 5 – CONSENT & CONFIRMATION</div>
+
+           <div class="mb-3">
+    <label class="form-label required-field">29. Communication Consent</label>
+    <div class="form-check">
+        {{ form.communication_consent }}
+        <label class="form-check-label" for="{{ form.communication_consent.id_for_label }}">
+            I agree to be contacted regarding: Free courses, Internship opportunities, Job opportunities, and Hackathon updates
+        </label>
+    </div>
+    <div class="help-text">
+        You must agree before submitting the form.
+    </div>
+</div>
+
+
+            <!-- Submit Button -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary" id="submitBtn" disabled>
+    Submit Registration
+</button>
+
             </div>
         </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Toggle conditional fields based on radio button selections
+        // Show/hide conditional fields
         document.addEventListener('DOMContentLoaded', function() {
-            // Course fields
-            const courseRadios = document.querySelectorAll('input[name="interested_in_course"]');
-            const courseFields = document.getElementById('courseFields');
+            // Learning Domain - Other
+            const learningDomain = document.querySelector('select[name="preferred_learning_domain"]');
+            const learningDomainOther = document.getElementById('learningDomainOtherField');
             
-            courseRadios.forEach(radio => {
+            learningDomain.addEventListener('change', function() {
+                if (this.value === 'Other') {
+                    learningDomainOther.classList.add('show');
+                } else {
+                    learningDomainOther.classList.remove('show');
+                }
+            });
+            if (learningDomain.value === 'Other') {
+                learningDomainOther.classList.add('show');
+            }
+
+            // Internship Experience
+            const internshipRadios = document.querySelectorAll('input[name="previous_internship_experience"]');
+            const internshipDetails = document.getElementById('internshipDetailsField');
+            
+            internshipRadios.forEach(radio => {
                 radio.addEventListener('change', function() {
-                    if (this.value === 'True') {
-                        courseFields.classList.add('show');
+                    if (this.value === 'Yes' || this.value === 'Currently pursuing') {
+                        internshipDetails.classList.add('show');
                     } else {
-                        courseFields.classList.remove('show');
+                        internshipDetails.classList.remove('show');
                     }
                 });
-                if (radio.checked && radio.value === 'True') {
-                    courseFields.classList.add('show');
+                if (radio.checked && (radio.value === 'Yes' || radio.value === 'Currently pursuing')) {
+                    internshipDetails.classList.add('show');
                 }
             });
 
-            // Previous internship fields
-            const prevInternRadios = document.querySelectorAll('input[name="has_previous_internship"]');
-            const prevInternFields = document.getElementById('previousInternshipFields');
+            // Job Experience
+            const jobRadios = document.querySelectorAll('input[name="prior_job_experience"]');
+            const jobDetails = document.getElementById('jobDetailsField');
             
-            prevInternRadios.forEach(radio => {
+            jobRadios.forEach(radio => {
                 radio.addEventListener('change', function() {
-                    if (this.value === 'True') {
-                        prevInternFields.classList.add('show');
+                    if (this.value === 'Yes' || this.value === 'Currently pursuing') {
+                        jobDetails.classList.add('show');
                     } else {
-                        prevInternFields.classList.remove('show');
+                        jobDetails.classList.remove('show');
                     }
                 });
-                if (radio.checked && radio.value === 'True') {
-                    prevInternFields.classList.add('show');
+                if (radio.checked && (radio.value === 'Yes' || radio.value === 'Currently pursuing')) {
+                    jobDetails.classList.add('show');
                 }
             });
 
-            // Current internship fields
-            const currInternRadios = document.querySelectorAll('input[name="currently_doing_internship"]');
-            const currInternFields = document.getElementById('currentInternshipFields');
+            // Career Domain - Other
+            const careerDomain = document.querySelector('select[name="preferred_career_domain"]');
+            const careerDomainOther = document.getElementById('careerDomainOtherField');
             
-            currInternRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    if (this.value === 'True') {
-                        currInternFields.classList.add('show');
-                    } else {
-                        currInternFields.classList.remove('show');
-                    }
-                });
-                if (radio.checked && radio.value === 'True') {
-                    currInternFields.classList.add('show');
+            careerDomain.addEventListener('change', function() {
+                if (this.value === 'Other') {
+                    careerDomainOther.classList.add('show');
+                } else {
+                    careerDomainOther.classList.remove('show');
                 }
             });
-
-            // Previous job fields
-            const prevJobRadios = document.querySelectorAll('input[name="has_previous_job"]');
-            const prevJobFields = document.getElementById('previousJobFields');
-            
-            prevJobRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    if (this.value === 'True') {
-                        prevJobFields.classList.add('show');
-                    } else {
-                        prevJobFields.classList.remove('show');
-                    }
-                });
-                if (radio.checked && radio.value === 'True') {
-                    prevJobFields.classList.add('show');
-                }
-            });
-
-            // Current job fields
-            const currJobRadios = document.querySelectorAll('input[name="currently_employed"]');
-            const currJobFields = document.getElementById('currentJobFields');
-            
-            currJobRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    if (this.value === 'True') {
-                        currJobFields.classList.add('show');
-                    } else {
-                        currJobFields.classList.remove('show');
-                    }
-                });
-                if (radio.checked && radio.value === 'True') {
-                    currJobFields.classList.add('show');
-                }
-            });
-
-            // Hackathon fields
-            const hackathonRadios = document.querySelectorAll('input[name="interested_in_hackathon"]');
-            const hackathonFields = document.getElementById('hackathonFields');
-            
-            hackathonRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    if (this.value === 'True') {
-                        hackathonFields.classList.add('show');
-                    } else {
-                        hackathonFields.classList.remove('show');
-                    }
-                });
-                if (radio.checked && radio.value === 'True') {
-                    hackathonFields.classList.add('show');
-                }
-            });
+            if (careerDomain.value === 'Other') {
+                careerDomainOther.classList.add('show');
+            }
         });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const consentCheckbox = document.querySelector(
+        'input[name="communication_consent"]'
+    );
+         const submitBtn = document.getElementById('submitBtn');
+
+    // Initial state
+        submitBtn.disabled = !consentCheckbox.checked;
+
+    // Toggle submit button on checkbox change
+        consentCheckbox.addEventListener('change', function () {
+        submitBtn.disabled = !this.checked;
+    });
+});
     </script>
 </body>
 </html>

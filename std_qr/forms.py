@@ -5,117 +5,119 @@ from .models import Registration
 class RegistrationForm(forms.ModelForm):
     class Meta:
         model = Registration
-        fields = ['college_name', 'branch_of_study', 'current_year', 
-                  'interested_in_course', 'preferred_course_domain', 'preferred_learning_mode', 'current_skill_level',
-                  'has_previous_internship', 'internship_duration', 'internship_roles', 'internship_skills_gained',
-                  'currently_doing_internship', 'current_internship_company', 'current_internship_role', 'current_internship_duration',
-                  'has_previous_job', 'job_duration', 'job_roles', 'job_skills_gained',
-                  'currently_employed', 'current_job_company', 'current_job_role', 'current_job_duration',
-                  'interested_in_opportunities', 'preferred_role', 'availability', 'open_to_remote', 'resume',
-                  'interested_in_hackathon', 'has_hackathon_experience', 'preferred_hackathon_mode',
-                  'participant_name', 'participant_email', 'team_preference', 'team_name', 'participant_mobile', 'consent']
+        fields = [
+            'full_name', 'college_name', 'college_code', 'branch_department', 'year_of_study',
+            'email_address', 'mobile_number', 'preferred_learning_domain', 'preferred_learning_domain_other',
+            'preferred_mode_of_learning', 'current_skill_level', 'interested_in_internship', 'interested_in_job',
+            'previous_internship_experience', 'internship_company_name', 'internship_role', 'internship_duration',
+            'internship_skills_gained', 'prior_job_experience', 'job_company_name', 'job_role', 'job_duration',
+            'job_skills_gained', 'preferred_career_domain', 'preferred_career_domain_other', 'availability',
+            'open_to_remote', 'resume', 'team_name', 'need_mentor_support', 'college_registration_number',
+            'naan_mudhalvan_id', 'district', 'project_file', 'communication_consent'
+        ]
 
         widgets = {
+            'full_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your full name'
+            }),
             'college_name': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter your college name'
             }),
-            'branch_of_study': forms.TextInput(attrs={
+            'college_code': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'e.g., CSE, ECE, IT'
+                'placeholder': 'Enter college code'
             }),
-            'current_year': forms.Select(attrs={'class': 'form-select'}),
-            'interested_in_course': forms.RadioSelect(choices=[(True, 'Yes'), (False, 'No')]),
-            'preferred_course_domain': forms.Select(attrs={'class': 'form-select'}),
-            'preferred_learning_mode': forms.RadioSelect(),
+            'branch_department': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Example: CSE, IT, ECE, Mechanical, Civil, etc.'
+            }),
+            'year_of_study': forms.Select(attrs={'class': 'form-select'}),
+            'email_address': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'your.email@example.com'
+            }),
+            'mobile_number': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '+91 XXXXXXXXXX'
+            }),
+            'preferred_learning_domain': forms.Select(attrs={'class': 'form-select'}),
+            'preferred_learning_domain_other': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Specify other domain'
+            }),
+            'preferred_mode_of_learning': forms.RadioSelect(),
             'current_skill_level': forms.RadioSelect(),
-            'has_previous_internship': forms.RadioSelect(choices=[(True, 'Yes'), (False, 'No')]),
-            'internship_duration': forms.Textarea(attrs={
+            'interested_in_internship': forms.RadioSelect(),
+            'interested_in_job': forms.RadioSelect(),
+            'previous_internship_experience': forms.RadioSelect(),
+            'internship_company_name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'rows': 2,
-                'placeholder': 'Please provide detailed information'
+                'placeholder': 'Company/Organisation Name'
             }),
-            'internship_roles': forms.Textarea(attrs={
+            'internship_role': forms.TextInput(attrs={
                 'class': 'form-control',
-                'rows': 2,
-                'placeholder': 'e.g., Web Development Intern'
+                'placeholder': 'Role / Designation'
+            }),
+            'internship_duration': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'e.g., 3 months, 6 months'
             }),
             'internship_skills_gained': forms.Textarea(attrs={
                 'class': 'form-control',
-                'rows': 2,
-                'placeholder': 'List key skills'
+                'rows': 3,
+                'placeholder': 'List key skills gained (Optional)'
             }),
-            'currently_doing_internship': forms.RadioSelect(choices=[(True, 'Yes'), (False, 'No')]),
-            'current_internship_company': forms.TextInput(attrs={
+            'prior_job_experience': forms.RadioSelect(),
+            'job_company_name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Company name'
+                'placeholder': 'Company/Organisation Name'
             }),
-            'current_internship_role': forms.TextInput(attrs={
+            'job_role': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Your role'
+                'placeholder': 'Role / Designation'
             }),
-            'current_internship_duration': forms.Textarea(attrs={
+            'job_duration': forms.TextInput(attrs={
                 'class': 'form-control',
-                'rows': 2,
-                'placeholder': 'Duration'
-            }),
-            'has_previous_job': forms.RadioSelect(choices=[(True, 'Yes'), (False, 'No')]),
-            'job_duration': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 2,
-                'placeholder': 'Total duration'
-            }),
-            'job_roles': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 2,
-                'placeholder': 'Previous roles'
+                'placeholder': 'e.g., 1.5 years, 3 years'
             }),
             'job_skills_gained': forms.Textarea(attrs={
                 'class': 'form-control',
-                'rows': 2,
-                'placeholder': 'Key skills'
+                'rows': 3,
+                'placeholder': 'List key skills gained (Optional)'
             }),
-            'currently_employed': forms.RadioSelect(choices=[(True, 'Yes'), (False, 'No')]),
-            'current_job_company': forms.TextInput(attrs={
+            'preferred_career_domain': forms.Select(attrs={'class': 'form-select'}),
+            'preferred_career_domain_other': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Company name'
+                'placeholder': 'Specify other career domain'
             }),
-            'current_job_role': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Your role'
-            }),
-            'current_job_duration': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 2,
-                'placeholder': 'Duration'
-            }),
-            'interested_in_opportunities': forms.RadioSelect(),
-            'preferred_role': forms.Select(attrs={'class': 'form-select'}),
             'availability': forms.RadioSelect(),
-            'open_to_remote': forms.RadioSelect(choices=[(True, 'Yes'), (False, 'No')]),
+            'open_to_remote': forms.RadioSelect(),
             'resume': forms.FileInput(attrs={
                 'class': 'form-control',
                 'accept': '.pdf,.doc,.docx'
             }),
-            'interested_in_hackathon': forms.RadioSelect(choices=[(True, 'Yes'), (False, 'No')]),
-            'has_hackathon_experience': forms.RadioSelect(choices=[(True, 'Yes'), (False, 'No')]),
-            'preferred_hackathon_mode': forms.RadioSelect(),
-            'participant_name': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Your full name'
-            }),
-            'participant_email': forms.EmailInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'your.email@example.com'
-            }),
-            'team_preference': forms.RadioSelect(),
             'team_name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Team name'
+                'placeholder': 'Enter team name (Required only if you already have a team)'
             }),
-            'participant_mobile': forms.TextInput(attrs={
+            'need_mentor_support': forms.RadioSelect(),
+            'college_registration_number': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': '+91 XXXXXXXXXX'
+                'placeholder': 'REG NO: ________________'
             }),
-            'consent': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'naan_mudhalvan_id': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'NM ID: ________________'
+            }),
+            'district': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your district'
+            }),
+            'project_file': forms.FileInput(attrs={
+                'class': 'form-control',
+                'accept': '.pdf,.doc,.docx'
+            }),
+            'communication_consent': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }

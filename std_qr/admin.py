@@ -5,102 +5,123 @@ from .models import Registration
 
 @admin.register(Registration)
 class RegistrationAdmin(ImportExportModelAdmin):
-    list_display = [
-        'college_name', 
-        'branch_of_study', 
-        'current_year',
-        'interested_in_course',
-        'interested_in_hackathon',
-        'participant_name',
-        'created_at'
-    ]
-    
-    list_filter = [
-        'interested_in_course',
-        'interested_in_hackathon',
-        'current_year',
-        'preferred_course_domain',
-        'interested_in_opportunities',
-        'created_at'
-    ]
-    
-    search_fields = [
+
+    # Columns in admin list view
+    list_display = (
+        'form_title',
+        'full_name',
         'college_name',
-        'branch_of_study',
-        'participant_name',
-        'participant_email',
-        'team_name'
-    ]
-    
-    readonly_fields = ['created_at', 'updated_at']
-    
+        'branch_department',
+        'year_of_study',
+        'email_address',
+        'mobile_number',
+        'preferred_learning_domain',
+        'interested_in_internship',
+        'interested_in_job',
+        'team_name',
+        'created_at',
+    )
+
+    # Filters (must be real fields)
+    list_filter = (
+        'year_of_study',
+        'preferred_learning_domain',
+        'current_skill_level',
+        'interested_in_internship',
+        'interested_in_job',
+        'preferred_career_domain',
+        'open_to_remote',
+        'created_at',
+    )
+
+    # Search box
+    search_fields = (
+        'full_name',
+        'email_address',
+        'mobile_number',
+        'college_name',
+        'team_name',
+    )
+
+    readonly_fields = (
+        'created_at',
+        'updated_at',
+    )
+
+    # Admin form layout
     fieldsets = (
+
         ('Basic Information', {
-            'fields': ('college_name', 'branch_of_study', 'current_year')
-        }),
-        ('Course Registration', {
             'fields': (
-                'interested_in_course',
-                'preferred_course_domain',
-                'preferred_learning_mode',
-                'current_skill_level'
+                'full_name',
+                'college_name',
+                'college_code',
+                'branch_department',
+                'year_of_study',
+                'email_address',
+                'mobile_number',
+            )
+        }),
+
+        ('Learning Preferences', {
+            'fields': (
+                'preferred_learning_domain',
+                'preferred_learning_domain_other',
+                'preferred_mode_of_learning',
+                'current_skill_level',
             ),
-            'classes': ('collapse',)
+            'classes': ('collapse',),
         }),
-        ('Internship Experience', {
+
+        ('Internship & Job Interest', {
             'fields': (
-                'has_previous_internship',
+                'interested_in_internship',
+                'interested_in_job',
+                'previous_internship_experience',
+                'internship_company_name',
+                'internship_role',
                 'internship_duration',
-                'internship_roles',
                 'internship_skills_gained',
-                'currently_doing_internship',
-                'current_internship_company',
-                'current_internship_role',
-                'current_internship_duration'
-            ),
-            'classes': ('collapse',)
-        }),
-        ('Job Experience', {
-            'fields': (
-                'has_previous_job',
+                'prior_job_experience',
+                'job_company_name',
+                'job_role',
                 'job_duration',
-                'job_roles',
                 'job_skills_gained',
-                'currently_employed',
-                'current_job_company',
-                'current_job_role',
-                'current_job_duration'
             ),
-            'classes': ('collapse',)
+            'classes': ('collapse',),
         }),
-        ('Opportunity Preferences', {
+
+        ('Career Preferences', {
             'fields': (
-                'interested_in_opportunities',
-                'preferred_role',
+                'preferred_career_domain',
+                'preferred_career_domain_other',
                 'availability',
                 'open_to_remote',
-                'resume'
+                'resume',
             ),
-            'classes': ('collapse',)
+            'classes': ('collapse',),
         }),
-        ('Hackathon Registration', {
+
+        ('Hackathon Details', {
             'fields': (
-                'interested_in_hackathon',
-                'has_hackathon_experience',
-                'preferred_hackathon_mode',
-                'participant_name',
-                'participant_email',
-                'team_preference',
                 'team_name',
-                'participant_mobile',
-                'consent'
+                'need_mentor_support',
+                'college_registration_number',
+                'naan_mudhalvan_id',
+                'district',
+                'project_file',
             ),
-            'classes': ('collapse',)
+            'classes': ('collapse',),
         }),
-        ('Metadata', {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
+
+        ('Consent & Metadata', {
+            'fields': (
+                'communication_consent',
+                'created_at',
+                'updated_at',
+            ),
+            'classes': ('collapse',),
         }),
     )
-    
+
     date_hierarchy = 'created_at'
