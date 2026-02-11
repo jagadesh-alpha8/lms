@@ -3,18 +3,24 @@ from django.core.validators import FileExtensionValidator
 
 class Zone(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    class Meta:
+        ordering = ['name']
     def __str__(self):
         return self.name
 
 class District(models.Model):
     name = models.CharField(max_length=100)
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE, related_name='districts')
+    class Meta:
+        ordering = ['name']
     def __str__(self):
         return f"{self.name} ({self.zone.name})"
 
 class College(models.Model):
     name = models.CharField(max_length=200)
     district = models.ForeignKey(District, on_delete=models.CASCADE, related_name='colleges')
+    class Meta:
+        ordering = ['name']
     def __str__(self):
         return f"{self.name}"
 
