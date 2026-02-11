@@ -153,23 +153,28 @@
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.college_name.id_for_label }}" class="form-label required-field">2. College Name</label>
-                {{ form.college_name }}
-                {% if form.college_name.errors %}
-                    <ul class="errorlist">{% for error in form.college_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>
-                {% endif %}
+                <label for="{{ form.zone.id_for_label }}" class="form-label required-field">2. Zone</label>
+                {{ form.zone }}
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.college_code.id_for_label }}" class="form-label required-field">3. College Code</label>
-                {{ form.college_code }}
-                {% if form.college_code.errors %}
-                    <ul class="errorlist">{% for error in form.college_code.errors %}<li>{{ error }}</li>{% endfor %}</ul>
-                {% endif %}
+                <label for="{{ form.district.id_for_label }}" class="form-label required-field">3. District</label>
+                <select name="district" id="id_district" class="form-select">
+                    <option value="">---------</option>
+                </select>
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.branch_department.id_for_label }}" class="form-label required-field">4. Branch / Department</label>
+                <label for="{{ form.college.id_for_label }}" class="form-label required-field">4. College</label>
+                <select name="college" id="id_college" class="form-select">
+                    <option value="">---------</option>
+                </select>
+            </div>
+
+
+
+            <div class="mb-3">
+                <label for="{{ form.branch_department.id_for_label }}" class="form-label required-field">5. Branch / Department</label>
                 {{ form.branch_department }}
                 <div class="help-text">(Example: CSE, IT, ECE, Mechanical, Civil, etc.)</div>
                 {% if form.branch_department.errors %}
@@ -178,7 +183,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.year_of_study.id_for_label }}" class="form-label required-field">5. Year of Study</label>
+                <label for="{{ form.year_of_study.id_for_label }}" class="form-label required-field">6. Year of Study</label>
                 {{ form.year_of_study }}
                 {% if form.year_of_study.errors %}
                     <ul class="errorlist">{% for error in form.year_of_study.errors %}<li>{{ error }}</li>{% endfor %}</ul>
@@ -186,7 +191,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.email_address.id_for_label }}" class="form-label required-field">6. Email Address</label>
+                <label for="{{ form.email_address.id_for_label }}" class="form-label required-field">7. Email Address</label>
                 {{ form.email_address }}
                 {% if form.email_address.errors %}
                     <ul class="errorlist">{% for error in form.email_address.errors %}<li>{{ error }}</li>{% endfor %}</ul>
@@ -194,7 +199,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.mobile_number.id_for_label }}" class="form-label required-field">7. Mobile Number</label>
+                <label for="{{ form.mobile_number.id_for_label }}" class="form-label required-field">8. Mobile Number</label>
                 {{ form.mobile_number }}
                 {% if form.mobile_number.errors %}
                     <ul class="errorlist">{% for error in form.mobile_number.errors %}<li>{{ error }}</li>{% endfor %}</ul>
@@ -205,7 +210,7 @@
             <div class="section-header">SECTION 2 – LEARNING INTEREST</div>
 
             <div class="mb-3">
-                <label for="{{ form.preferred_learning_domain.id_for_label }}" class="form-label required-field">8. Preferred Learning Domain</label>
+                <label for="{{ form.preferred_learning_domain.id_for_label }}" class="form-label required-field">9. Preferred Learning Domain</label>
                 {{ form.preferred_learning_domain }}
                 {% if form.preferred_learning_domain.errors %}
                     <ul class="errorlist">{% for error in form.preferred_learning_domain.errors %}<li>{{ error }}</li>{% endfor %}</ul>
@@ -218,7 +223,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label required-field">9. Preferred Mode of Learning</label>
+                <label class="form-label required-field">10. Preferred Mode of Learning</label>
                 <div class="radio-group">
                     {% for radio in form.preferred_mode_of_learning %}
                         {{ radio }}
@@ -230,7 +235,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label required-field">10. Current Skill Level in Selected Domain</label>
+                <label class="form-label required-field">11. Current Skill Level in Selected Domain</label>
                 <div class="radio-group">
                     {% for radio in form.current_skill_level %}
                         {{ radio }}
@@ -245,7 +250,7 @@
             <div class="section-header">SECTION 3 – INTERNSHIP & CAREER INTEREST</div>
 
             <div class="mb-3">
-                <label class="form-label required-field">11. Are you interested in Internship Opportunities?</label>
+                <label class="form-label required-field">12. Are you interested in Internship Opportunities?</label>
                 <div class="radio-group">
                     {% for radio in form.interested_in_internship %}
                         {{ radio }}
@@ -257,7 +262,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label required-field">12. Are you interested in Job Placement Opportunities?</label>
+                <label class="form-label required-field">13. Are you interested in Job Placement Opportunities?</label>
                 <div class="radio-group">
                     {% for radio in form.interested_in_job %}
                         {{ radio }}
@@ -269,7 +274,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label required-field">13. Do you have any previous internship experience?</label>
+                <label class="form-label required-field">14. Do you have any previous internship experience?</label>
                 <div class="radio-group">
                     {% for radio in form.previous_internship_experience %}
                         {{ radio }}
@@ -290,17 +295,17 @@
                     {{ form.internship_role }}
                 </div>
                 <div class="mb-3">
-                    <label for="{{ form.internship_duration.id_for_label }}" class="form-label">14. If Yes – Internship Duration</label>
+                    <label for="{{ form.internship_duration.id_for_label }}" class="form-label">15. If Yes – Internship Duration</label>
                     {{ form.internship_duration }}
                 </div>
                 <div class="mb-3">
-                    <label for="{{ form.internship_skills_gained.id_for_label }}" class="form-label">15. Key Skills Gained from Internship (Optional)</label>
+                    <label for="{{ form.internship_skills_gained.id_for_label }}" class="form-label">16. Key Skills Gained from Internship (Optional)</label>
                     {{ form.internship_skills_gained }}
                 </div>
             </div>
 
             <div class="mb-3">
-                <label class="form-label required-field">16. Do you have any prior job experience?</label>
+                <label class="form-label required-field">17. Do you have any prior job experience?</label>
                 <div class="radio-group">
                     {% for radio in form.prior_job_experience %}
                         {{ radio }}
@@ -321,17 +326,17 @@
                     {{ form.job_role }}
                 </div>
                 <div class="mb-3">
-                    <label for="{{ form.job_duration.id_for_label }}" class="form-label">17. If Yes – Job Duration</label>
+                    <label for="{{ form.job_duration.id_for_label }}" class="form-label">18. If Yes – Job Duration</label>
                     {{ form.job_duration }}
                 </div>
                 <div class="mb-3">
-                    <label for="{{ form.job_skills_gained.id_for_label }}" class="form-label">18. Key Skills Gained from Job (Optional)</label>
+                    <label for="{{ form.job_skills_gained.id_for_label }}" class="form-label">19. Key Skills Gained from Job (Optional)</label>
                     {{ form.job_skills_gained }}
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.preferred_career_domain.id_for_label }}" class="form-label required-field">19. Preferred Career Domain</label>
+                <label for="{{ form.preferred_career_domain.id_for_label }}" class="form-label required-field">20. Preferred Career Domain</label>
                 {{ form.preferred_career_domain }}
                 {% if form.preferred_career_domain.errors %}
                     <ul class="errorlist">{% for error in form.preferred_career_domain.errors %}<li>{{ error }}</li>{% endfor %}</ul>
@@ -344,7 +349,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label required-field">20. Availability for Internship / Job</label>
+                <label class="form-label required-field">21. Availability for Internship / Job</label>
                 <div class="radio-group">
                     {% for radio in form.availability %}
                         {{ radio }}
@@ -356,7 +361,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label required-field">21. Open to Remote Opportunities?</label>
+                <label class="form-label required-field">22. Open to Remote Opportunities?</label>
                 <div class="radio-group">
                     {% for radio in form.open_to_remote %}
                         {{ radio }}
@@ -368,7 +373,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.resume.id_for_label }}" class="form-label">22. Resume Upload (Optional)</label>
+                <label for="{{ form.resume.id_for_label }}" class="form-label">23. Resume Upload (Optional)</label>
                 {{ form.resume }}
                 <div class="help-text">Upload your latest resume (Supported: PDF / DOC – Max 10 MB)</div>
                 {% if form.resume.errors %}
@@ -380,7 +385,7 @@
             <div class="section-header">SECTION 4 – HACKATHON REGISTRATION</div>
 
             <div class="mb-3">
-                <label for="{{ form.team_name.id_for_label }}" class="form-label">23. Team Name</label>
+                <label for="{{ form.team_name.id_for_label }}" class="form-label">24. Team Name</label>
                 {{ form.team_name }}
                 <div class="help-text">(Required only if you already have a team)</div>
                 {% if form.team_name.errors %}
@@ -389,7 +394,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label required-field">24. Do you need mentor support before Hackathon?</label>
+                <label class="form-label required-field">25. Do you need mentor support before Hackathon?</label>
                 <div class="radio-group">
                     {% for radio in form.need_mentor_support %}
                         {{ radio }}
@@ -401,7 +406,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.college_registration_number.id_for_label }}" class="form-label required-field">25. College Registration Number</label>
+                <label for="{{ form.college_registration_number.id_for_label }}" class="form-label required-field">26. College Registration Number</label>
                 {{ form.college_registration_number }}
                 {% if form.college_registration_number.errors %}
                     <ul class="errorlist">{% for error in form.college_registration_number.errors %}<li>{{ error }}</li>{% endfor %}</ul>
@@ -409,18 +414,10 @@
             </div>
 
             <div class="mb-3">
-                <label for="{{ form.naan_mudhalvan_id.id_for_label }}" class="form-label">26. Naan Mudhalvan ID</label>
+                <label for="{{ form.naan_mudhalvan_id.id_for_label }}" class="form-label">27. Naan Mudhalvan ID</label>
                 {{ form.naan_mudhalvan_id }}
                 {% if form.naan_mudhalvan_id.errors %}
                     <ul class="errorlist">{% for error in form.naan_mudhalvan_id.errors %}<li>{{ error }}</li>{% endfor %}</ul>
-                {% endif %}
-            </div>
-
-            <div class="mb-3">
-                <label for="{{ form.district.id_for_label }}" class="form-label">27. District</label>
-                {{ form.district }}
-                {% if form.district.errors %}
-                    <ul class="errorlist">{% for error in form.district.errors %}<li>{{ error }}</li>{% endfor %}</ul>
                 {% endif %}
             </div>
 
@@ -544,6 +541,50 @@
         submitBtn.disabled = !this.checked;
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const zoneSelect = document.getElementById('id_zone');
+    const districtSelect = document.getElementById('id_district');
+    const collegeSelect = document.getElementById('id_college');
+
+    // When Zone changes → load districts
+    zoneSelect.addEventListener('change', function () {
+        const zoneId = this.value;
+        districtSelect.innerHTML = '<option value="">---------</option>';
+        collegeSelect.innerHTML = '<option value="">---------</option>';
+        if (!zoneId) return;
+
+        fetch("{% url 'ajax_load_districts' %}?zone_id=" + zoneId)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district.id;
+                    option.text = district.name;
+                    districtSelect.add(option);
+                });
+            });
+    });
+
+    // When District changes → load colleges
+    districtSelect.addEventListener('change', function () {
+        const districtId = this.value;
+        collegeSelect.innerHTML = '<option value="">---------</option>';
+        if (!districtId) return;
+
+        fetch("{% url 'ajax_load_colleges' %}?district_id=" + districtId)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(college => {
+                    const option = document.createElement('option');
+                    option.value = college.id;
+                    option.text = college.name;
+                    collegeSelect.add(option);
+                });
+            });
+    });
+});
+
     </script>
 </body>
 </html>

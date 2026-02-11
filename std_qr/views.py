@@ -39,3 +39,20 @@ def registration_view(request, form_type=None):
         "form": form,
         "form_title": form_title
     })
+
+
+
+from django.http import JsonResponse
+from .models import District, College
+
+def load_districts(request):
+    zone_id = request.GET.get('zone_id')
+    districts = District.objects.filter(zone_id=zone_id).order_by('name')
+    data = [{"id": d.id, "name": d.name} for d in districts]
+    return JsonResponse(data, safe=False)
+
+def load_colleges(request):
+    district_id = request.GET.get('district_id')
+    colleges = College.objects.filter(district_id=district_id).order_by('name')
+    data = [{"id": c.id, "name": c.name} for c in colleges]
+    return JsonResponse(data, safe=False)

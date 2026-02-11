@@ -1,16 +1,35 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
-from .models import Registration
+from .models import *
+
+
+@admin.register(Zone)
+class ZoneAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    search_fields = ('name',)
+
+@admin.register(District)
+class DistrictAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'zone')
+    list_filter = ('zone',)
+    search_fields = ('name',)
+
+@admin.register(College)
+class CollegeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'district')
+    list_filter = ('district',)
+    search_fields = ('name',)
 
 
 @admin.register(Registration)
 class RegistrationAdmin(ImportExportModelAdmin):
 
-    # Columns in admin list view
+    # Show college name/code using methods
     list_display = (
         'form_title',
         'full_name',
-        'college_name',
+        'get_college_name',
+        # 'get_college_code',
         'branch_department',
         'year_of_study',
         'email_address',
@@ -22,7 +41,6 @@ class RegistrationAdmin(ImportExportModelAdmin):
         'created_at',
     )
 
-    # Filters (must be real fields)
     list_filter = (
         'year_of_study',
         'preferred_learning_domain',
@@ -34,12 +52,11 @@ class RegistrationAdmin(ImportExportModelAdmin):
         'created_at',
     )
 
-    # Search box
     search_fields = (
         'full_name',
         'email_address',
         'mobile_number',
-        'college_name',
+        'college__name',  # use related field
         'team_name',
     )
 
@@ -48,21 +65,19 @@ class RegistrationAdmin(ImportExportModelAdmin):
         'updated_at',
     )
 
-    # Admin form layout
     fieldsets = (
-
         ('Basic Information', {
             'fields': (
                 'full_name',
-                'college_name',
-                'college_code',
+                'zone',
+                'district',
+                'college',  # just show the ForeignKey
                 'branch_department',
                 'year_of_study',
                 'email_address',
                 'mobile_number',
             )
         }),
-
         ('Learning Preferences', {
             'fields': (
                 'preferred_learning_domain',
@@ -72,7 +87,6 @@ class RegistrationAdmin(ImportExportModelAdmin):
             ),
             'classes': ('collapse',),
         }),
-
         ('Internship & Job Interest', {
             'fields': (
                 'interested_in_internship',
@@ -90,7 +104,6 @@ class RegistrationAdmin(ImportExportModelAdmin):
             ),
             'classes': ('collapse',),
         }),
-
         ('Career Preferences', {
             'fields': (
                 'preferred_career_domain',
@@ -101,19 +114,16 @@ class RegistrationAdmin(ImportExportModelAdmin):
             ),
             'classes': ('collapse',),
         }),
-
         ('Hackathon Details', {
             'fields': (
                 'team_name',
                 'need_mentor_support',
                 'college_registration_number',
                 'naan_mudhalvan_id',
-                'district',
                 'project_file',
             ),
             'classes': ('collapse',),
         }),
-
         ('Consent & Metadata', {
             'fields': (
                 'communication_consent',
@@ -125,3 +135,10 @@ class RegistrationAdmin(ImportExportModelAdmin):
     )
 
     date_hierarchy = 'created_at'
+
+    # Methods to display college name/code in list display
+    def get_college_name(self, obj):
+        return obj.college.name if obj.college else ''
+    get_college_name.short_description = 'College Name'
+
+  

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import registration_view
+from .views import *
 
 urlpatterns = [
 
@@ -11,4 +11,6 @@ urlpatterns = [
     path('embedded-c-mc/', registration_view, {'form_type': 'embedded_c_mc'}, name='embedded-c-mc-form'),
     path('iot-esp32/', registration_view, {'form_type': 'iot_esp32'}, name='iot-esp32-form'),
     path('network-essentials/', registration_view, {'form_type': 'network_essentials'}, name='network-essentials-form'),
+    path('ajax/load-districts/', load_districts, name='ajax_load_districts'),
+    path('ajax/load-colleges/', load_colleges, name='ajax_load_colleges'),
 ]

@@ -1,6 +1,22 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 
+class Zone(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    def __str__(self):
+        return self.name
+
+class District(models.Model):
+    name = models.CharField(max_length=100)
+    zone = models.ForeignKey(Zone, on_delete=models.CASCADE, related_name='districts')
+    def __str__(self):
+        return f"{self.name} ({self.zone.name})"
+
+class College(models.Model):
+    name = models.CharField(max_length=200)
+    district = models.ForeignKey(District, on_delete=models.CASCADE, related_name='colleges')
+    def __str__(self):
+        return f"{self.name}"
 
 class Registration(models.Model):
 
@@ -11,8 +27,11 @@ class Registration(models.Model):
 
     # SECTION 1 – BASIC DETAILS
     full_name = models.CharField(max_length=200)
-    college_name = models.CharField(max_length=200)
-    college_code = models.CharField(max_length=50)
+    zone = models.ForeignKey(Zone, on_delete=models.SET_NULL, null=True, blank=True)
+    district = models.ForeignKey(District, on_delete=models.SET_NULL, null=True, blank=True)
+    college = models.ForeignKey(College, on_delete=models.SET_NULL, null=True, blank=True)
+    # college_name = models.CharField(max_length=200)
+    # college_code = models.CharField(max_length=50)
 
     branch_department = models.CharField(
         max_length=100,
