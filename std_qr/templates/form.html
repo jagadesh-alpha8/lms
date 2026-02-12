@@ -137,6 +137,15 @@
                 <p><em>Please fill in the details carefully and accurately.</em></p>
             </div>
         </div>
+            <!-- {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %} -->
+
 
         <form method="post" enctype="multipart/form-data" id="registrationForm">
             {% csrf_token %}
@@ -375,7 +384,7 @@
             <div class="mb-3">
                 <label for="{{ form.resume.id_for_label }}" class="form-label">23. Resume Upload (Optional)</label>
                 {{ form.resume }}
-                <div class="help-text">Upload your latest resume (Supported: PDF / DOC – Max 10 MB)</div>
+                <div class="help-text">Upload your latest resume (Supported: PDF / DOC – Max 5 MB)</div>
                 {% if form.resume.errors %}
                     <ul class="errorlist">{% for error in form.resume.errors %}<li>{{ error }}</li>{% endfor %}</ul>
                 {% endif %}
@@ -424,7 +433,7 @@
             <div class="mb-3">
                 <label for="{{ form.project_file.id_for_label }}" class="form-label required-field">28. Project File</label>
                 {{ form.project_file }}
-                <div class="help-text">(Supported: PDF / DOC – Max 10 MB)</div>
+                <div class="help-text">(Supported: PDF / DOC – Max 5 MB)</div>
                 {% if form.project_file.errors %}
                     <ul class="errorlist">{% for error in form.project_file.errors %}<li>{{ error }}</li>{% endfor %}</ul>
                 {% endif %}

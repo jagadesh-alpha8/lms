@@ -29,8 +29,8 @@ SECRET_KEY = 'django-insecure-4!i19=7el&9arv&$3jjqu$3im3d9_k4bt50uy-0o@8+v7za)^&
 JWT_SECRET_KEY = 'django-insecure-4!i19=7el&9arv&$3jjqu$3im3d9_k4bt50uy-0o@8+v7za)^&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-DEV = False
+DEBUG = os.getenv("DEBUG")
+DEV = os.getenv("DEV")
 
 ALLOWED_HOSTS = ["apilearning.ingagemetaverse.com",'13.201.205.214','localhost', '127.0.0.1',]
 

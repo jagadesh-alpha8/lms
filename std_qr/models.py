@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
+from django.core.exceptions import ValidationError
 
 class Zone(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -23,6 +24,12 @@ class College(models.Model):
         ordering = ['name']
     def __str__(self):
         return f"{self.name}"
+
+def validate_file_size(value):
+    max_size = 5 * 1024 * 1024  # 5MB
+
+    if value.size > max_size:
+        raise ValidationError("File size must be under 5MB.")
 
 class Registration(models.Model):
 
@@ -234,7 +241,7 @@ class Registration(models.Model):
         upload_to="resumes/",
         blank=True,
         null=True,
-        validators=[FileExtensionValidator(['pdf', 'doc', 'docx'])]
+        validators=[FileExtensionValidator(['pdf', 'doc', 'docx']), validate_file_size]
     )
 
     # SECTION 4
@@ -267,7 +274,7 @@ class Registration(models.Model):
 
     project_file = models.FileField(
         upload_to="projects/",
-        validators=[FileExtensionValidator(['pdf', 'doc', 'docx'])]
+        validators=[FileExtensionValidator(['pdf', 'doc', 'docx']), validate_file_size]
     )
 
     # SECTION 5
