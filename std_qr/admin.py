@@ -1,6 +1,9 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from .models import *
+from import_export import resources, fields
+from import_export.widgets import ForeignKeyWidget
+
 
 
 @admin.register(Zone)
@@ -20,16 +23,48 @@ class CollegeAdmin(admin.ModelAdmin):
     list_filter = ('district',)
     search_fields = ('name',)
 
+class RegistrationResource(resources.ModelResource):
+
+    zone = fields.Field(
+        column_name='Zone',
+        attribute='zone',
+        widget=ForeignKeyWidget(Zone, 'name')
+    )
+
+    district = fields.Field(
+        column_name='District',
+        attribute='district',
+        widget=ForeignKeyWidget(District, 'name')
+    )
+
+    college = fields.Field(
+        column_name='College',
+        attribute='college',
+        widget=ForeignKeyWidget(College, 'name')
+    )
+    project_file = fields.Field(column_name='Project File')
+
+    def dehydrate_project_file(self, obj):
+        if obj.project_file:
+            return obj.project_file.url
+        return ""
+
+    class Meta:
+        model = Registration
+        exclude = ()
+
+
 
 @admin.register(Registration)
 class RegistrationAdmin(ImportExportModelAdmin):
+    resource_class = RegistrationResource
+
 
     # Show college name/code using methods
     list_display = (
         'form_title',
         'full_name',
         'get_college_name',
-        # 'get_college_code',
         'branch_department',
         'year_of_study',
         'email_address',
