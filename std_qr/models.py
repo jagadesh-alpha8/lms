@@ -40,16 +40,15 @@ class Registration(models.Model):
 
     # SECTION 1 – BASIC DETAILS
     full_name = models.CharField(max_length=200)
-    zone = models.ForeignKey(Zone, on_delete=models.SET_NULL, null=True, blank=True)
-    district = models.ForeignKey(District, on_delete=models.SET_NULL, null=True, blank=True)
-    college = models.ForeignKey(College, on_delete=models.SET_NULL, null=True, blank=True)
+    zone = models.ForeignKey(Zone, on_delete=models.SET_NULL, null=True,blank=False)
+    district = models.ForeignKey(District, on_delete=models.SET_NULL, null=True,blank=False)
+    college = models.ForeignKey(College, on_delete=models.SET_NULL, null=True,blank=False)
     # college_name = models.CharField(max_length=200)
     # college_code = models.CharField(max_length=50)
 
     branch_department = models.CharField(
         max_length=100,
-        blank=True,
-        null=True
+        null=True, blank=False
     )
 
     YEAR_CHOICES = [
@@ -211,8 +210,8 @@ class Registration(models.Model):
 
     preferred_career_domain_other = models.CharField(
         max_length=100,
-        blank=True,
-        null=True
+        null=True,
+        blank=True
     )
 
     AVAILABILITY_CHOICES = [
@@ -247,7 +246,6 @@ class Registration(models.Model):
     # SECTION 4
     team_name = models.CharField(
         max_length=200,
-        blank=True,
         null=True
     )
 
@@ -257,19 +255,12 @@ class Registration(models.Model):
     )
 
     college_registration_number = models.CharField(
-        max_length=100
+        max_length=100, blank=False
     )
 
     naan_mudhalvan_id = models.CharField(
         max_length=100,
-        blank=True,
-        null=True
-    )
-
-    district = models.CharField(
-        max_length=100,
-        blank=True,
-        null=True
+        null=True, blank=True
     )
 
     project_file = models.FileField(

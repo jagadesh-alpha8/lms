@@ -1,7 +1,9 @@
 from django import forms
 from .models import Registration
 
+
 class RegistrationForm(forms.ModelForm):
+
     class Meta:
         model = Registration
         fields = [
@@ -17,9 +19,9 @@ class RegistrationForm(forms.ModelForm):
 
         widgets = {
             'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your full name'}),
-            'zone': forms.Select(attrs={'class': 'form-select','id': 'id_zone'}),
-            'district': forms.Select(attrs={'class': 'form-select','id': 'id_district'}),
-            'college': forms.Select(attrs={'class': 'form-select','id': 'id_college'}),
+            'zone': forms.Select(attrs={'class': 'form-select', 'id': 'id_zone'}),
+            'district': forms.Select(attrs={'class': 'form-select', 'id': 'id_district'}),
+            'college': forms.Select(attrs={'class': 'form-select', 'id': 'id_college'}),
             'branch_department': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Example: CSE, IT, ECE'}),
             'year_of_study': forms.Select(attrs={'class': 'form-select'}),
             'email_address': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'your.email@example.com'}),
@@ -52,3 +54,36 @@ class RegistrationForm(forms.ModelForm):
             'project_file': forms.FileInput(attrs={'class': 'form-control', 'accept': '.pdf,.doc,.docx'}),
             'communication_consent': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items():
+            widget = field.widget
+
+            # Add Bootstrap invalid class automatically
+            if self.errors.get(field_name):
+                existing_class = widget.attrs.get('class', '')
+                widget.attrs['class'] = existing_class + ' is-invalid'
+
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        # Learning Domain validation
+        if cleaned_data.get("preferred_learning_domain") == "Other":
+            if not cleaned_data.get("preferred_learning_domain_other"):
+                self.add_error(
+                    "preferred_learning_domain_other",
+                    "Please specify other learning domain."
+                )
+
+        # Career Domain validation
+        if cleaned_data.get("preferred_career_domain") == "Other":
+            if not cleaned_data.get("preferred_career_domain_other"):
+                self.add_error(
+                    "preferred_career_domain_other",
+                    "Please specify other career domain."
+                )
+
+        return cleaned_data

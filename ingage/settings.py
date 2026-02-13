@@ -29,8 +29,9 @@ SECRET_KEY = 'django-insecure-4!i19=7el&9arv&$3jjqu$3im3d9_k4bt50uy-0o@8+v7za)^&
 JWT_SECRET_KEY = 'django-insecure-4!i19=7el&9arv&$3jjqu$3im3d9_k4bt50uy-0o@8+v7za)^&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG")
-DEV = os.getenv("DEV")
+
+DEBUG = os.getenv("DEBUG", "False") == "True"
+DEV = os.getenv("DEV", "False") == "True"
 
 ALLOWED_HOSTS = ["apilearning.ingagemetaverse.com",'13.201.205.214','localhost', '127.0.0.1',]
 
@@ -40,6 +41,7 @@ ALLOWED_HOSTS = ["apilearning.ingagemetaverse.com",'13.201.205.214','localhost',
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,11 +60,14 @@ INSTALLED_APPS = [
     'import_export',
     'std_qr',
     'storages',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
 ]
 
 AUTH_USER_MODEL = 'users.User'
-
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
 
@@ -100,7 +105,7 @@ WSGI_APPLICATION = 'ingage.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if DEV:
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -185,8 +190,6 @@ NM_CLIENT_KEY = os.environ.get('NM_CLIENT_KEY', '0ab4ace42aa7e3e8d2a46072a1671de
 NM_CLIENT_SECRET = os.environ.get('NM_CLIENT_SECRET', '53e16dee18e59cfa8c144c800d0f3b5d')
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = '/media/'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = ['http://13.201.205.214']
@@ -225,22 +228,39 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+if DEBUG:
+    # 🔹 Local development
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = 'nmapi'
-AWS_S3_REGION_NAME = 'ap-south-1'
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_OBJECT_PARAMETERS = {
-        'CacheControl': 'max-age=86400',
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
     }
-MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/"
-MEDIA_ROOT = ""
-STORAGES = {
+
+else:
+    # 🔹 Production (S3)
+    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = "nmapi"
+    AWS_S3_REGION_NAME = "ap-south-1"
+    AWS_S3_SIGNATURE_VERSION = "s3v4"
+
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_DEFAULT_ACL = None
+    AWS_QUERYSTRING_AUTH = False
+    AWS_S3_OBJECT_PARAMETERS = {
+        "CacheControl": "max-age=86400",
+    }
+
+    MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/"
+    MEDIA_ROOT = ""
+
+    STORAGES = {
         "default": {
             "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         },
@@ -248,4 +268,3 @@ STORAGES = {
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
-
