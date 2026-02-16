@@ -14,5 +14,7 @@ urlpatterns = [
     path('ajax/load-districts/', load_districts, name='ajax_load_districts'),
     path('ajax/load-colleges/', load_colleges, name='ajax_load_colleges'),
     path('success/', registration_success, name='registration_success'),
+    path('registration_full/', registration_full_api, name='registration_all'),
+    
 
 ]

@@ -51,7 +51,7 @@ class RegistrationResource(resources.ModelResource):
     
     resume = fields.Field(column_name='Resume')
 
-    def dehydrate_project_file(self, obj):
+    def dehydrate_resume(self, obj):
         if obj.resume:
             return obj.resume.url
         return ""

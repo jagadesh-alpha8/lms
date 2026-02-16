@@ -73,3 +73,23 @@ def load_colleges(request):
     district_id = request.GET.get('district_id')
     colleges = College.objects.filter(district_id=district_id).order_by('name')
     return JsonResponse([{"id": c.id, "name": c.name} for c in colleges], safe=False)
+
+
+
+from rest_framework.decorators import api_view
+from .models import Registration
+from .serializers import RegistrationFullSerializer
+from rest_framework.response import Response
+
+@api_view(['GET'])
+def registration_full_api(request):
+    registrations = Registration.objects.select_related(
+        "zone", "district", "college"
+    ).order_by("-created_at")
+
+    serializer = RegistrationFullSerializer(
+        registrations,
+        many=True,
+        context={"request": request}
+    )
+    return Response(serializer.data)
