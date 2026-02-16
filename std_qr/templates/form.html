@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,13 +118,35 @@
             font-weight: bold;
             margin-right: 8px;
         }
+        .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.form-title {
+    margin: 0;
+    text-align: center;
+    flex: 1;   /* This keeps title centered */
+}
+
+.header-logo {
+    width: 80px;   /* Adjust size as needed */
+    height: auto;
+}
+
     </style>
 </head>
 <body>
     <div class="form-container">
         <div class="form-header">
-            <center><h1>{{ form_title }}</h1></center>
-            <h4>Skill Development Program – Hackathon, Free Course & Career Opportunity Registration</h4>
+        <div class="header-row">
+        <img src="{% static 'images/ingage_logo.png' %}" alt="Left Logo" class="header-logo left-logo" style="width: 150px;height:auto ;">
+        <center><h1>{{ form_title }}</h1></center>
+        <img src="{% static 'images/naan_mudhalvan.png' %}" alt="Right Logo" class="header-logo right-logo" style="width: 150px;height:auto ;">
+        </div><br><br>
+            <b><h4>Skill Development Program – Hackathon, Free Course & Career Opportunity Registration</h4></b>
             <div class="form-description">
                 <p><strong>Welcome!</strong></p>
                 <p>This form is designed to help students access multiple opportunities through a single registration:</p>

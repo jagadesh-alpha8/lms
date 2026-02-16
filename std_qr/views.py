@@ -7,14 +7,14 @@ from .models import District, College
 
 
 FORM_TITLES = {
-    "iot_sensor":           "IOT and Sensor Integration",
-    "info_network_cabling": "Information Network Cabling",
-    "it_network_admin":     "IT Network System Administrator",
-    "cybersec_ibm":         "Cyber Security Essentials with IBM Certification",
-    "ev_tech":              "EV Technology",
-    "embedded_c_mc":        "Embedded C & Micro Controller Programming",
-    "iot_esp32":            "IoT Application (ESP32)",
-    "network_essentials":   "Network Essentials",
+    "iot_sensor":           "IOT and Sensor Integration - Polytechnic",
+    "info_network_cabling": "Information Network Cabling - Polytechnic",
+    "it_network_admin":     "IT Network System Administrator - Polytechnic",
+    "cybersec_ibm":         "Cyber Security Essentials - Polytechnic",
+    "ev_tech":              "EV Technology - Polytechnic",
+    "embedded_c_mc":        "Embedded C & Micro Controller Programming - Engineering",
+    "iot_esp32":            "IoT Application (ESP32) - Engineering",
+    "network_essentials":   "Network Essentials - Engineering",
 }
 
 

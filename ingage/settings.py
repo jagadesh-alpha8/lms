@@ -41,7 +41,6 @@ ALLOWED_HOSTS = ["apilearning.ingagemetaverse.com",'13.201.205.214','localhost',
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,7 +63,6 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'users.User'
-
 
 MIDDLEWARE = [
 
@@ -159,7 +157,6 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 
 
 # Default primary key field type

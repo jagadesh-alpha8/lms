@@ -48,7 +48,14 @@ class RegistrationResource(resources.ModelResource):
         if obj.project_file:
             return obj.project_file.url
         return ""
+    
+    resume = fields.Field(column_name='Resume')
 
+    def dehydrate_project_file(self, obj):
+        if obj.resume:
+            return obj.resume.url
+        return ""
+    
     class Meta:
         model = Registration
         exclude = ()
