@@ -63,8 +63,8 @@ class Registration(models.Model):
         choices=YEAR_CHOICES
     )
 
-    email_address = models.EmailField()
-    mobile_number = models.CharField(max_length=15)
+    email_address = models.EmailField(unique=True)
+    mobile_number = models.CharField(max_length=15, unique=True)
 
     # SECTION 2
     LEARNING_DOMAIN_CHOICES = [
