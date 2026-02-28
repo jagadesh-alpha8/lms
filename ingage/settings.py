@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'storages',
     'drf_spectacular',
     'django_filters',
+    'widget_tweaks',
 
 ]
 

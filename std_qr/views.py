@@ -127,3 +127,5 @@ def registration_list(request):
         'page_obj': page_obj,
         'request': request
     })
+
+
